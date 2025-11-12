@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4G Node Pulse Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header class="app-header">
+        <div>
+            <h1>4G Node Pulse Dashboard</h1>
+            <p class="subtitle">Mock monitoring suite for standalone 4G nodes. Status values randomize on each refresh.</p>
+        </div>
+        <div class="legend">
+            <span class="legend-item status-ok">OK</span>
+            <span class="legend-item status-warn">WARN</span>
+            <span class="legend-item status-fail">FAIL</span>
+        </div>
+    </header>
+
+    <main id="node-container" class="node-container">
+        {% for node in nodes %}
+            {% include 'node.html' %}
+        {% else %}
+            <p class="empty-state">No nodes configured. Update the NODES list in app.py to add units.</p>
+        {% endfor %}
+    </main>
+
+    <footer class="app-footer">
+        <p>Configuration driven — add nodes in <code>app.py</code>, and checks run via <code>service_checks.py</code>.</p>
+    </footer>
+
+    <script>
+        const NODE_PAYLOAD = {{ nodes | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
