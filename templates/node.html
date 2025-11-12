@@ -1,0 +1,24 @@
+<div class="node-card status-{{ node.overall_status|lower }}" data-node-name="{{ node.name }}">
+    <button class="node-header" type="button" aria-expanded="false">
+        <div class="node-primary">
+            <h2 class="node-name">{{ node.name }}</h2>
+            <span class="node-ip">{{ node.ip }}</span>
+        </div>
+        <div class="node-meta">
+            <span class="node-status status-pill status-{{ node.overall_status|lower }}">{{ node.overall_status }}</span>
+            <span class="node-timestamp">Checked at {{ node.checked_at }}</span>
+            <span class="toggle-icon" aria-hidden="true"></span>
+        </div>
+    </button>
+    <div class="node-details" aria-hidden="true">
+        <div class="status-grid">
+            {% for service_name, payload in node.services.items() %}
+            <div class="status-item status-{{ payload.status|lower }}">
+                <h3>{{ service_name }}</h3>
+                <p class="status-label">{{ payload.status }}</p>
+                <p class="status-details">{{ payload.details }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
