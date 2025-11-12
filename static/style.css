@@ -1,0 +1,297 @@
+:root {
+    --bg-color: #0b0b0f;
+    --panel-color: #14141c;
+    --panel-border: #2d2d3a;
+    --accent: #e50914;
+    --text-primary: #f5f5f5;
+    --text-secondary: #9f9fb3;
+    --ok: #1db954;
+    --warn: #ffb600;
+    --fail: #ff3b30;
+    --transition-speed: 240ms;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top left, rgba(229, 9, 20, 0.08), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(229, 9, 20, 0.1), transparent 45%),
+        var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    padding: 2.5rem 3rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(90deg, rgba(229, 9, 20, 0.12), transparent 70%);
+    border-bottom: 1px solid rgba(229, 9, 20, 0.2);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    margin: 0.4rem 0 0;
+    color: var(--text-secondary);
+    max-width: 560px;
+}
+
+.legend {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 26px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-ok {
+    color: var(--ok);
+}
+
+.status-warn {
+    color: var(--warn);
+}
+
+.status-fail {
+    color: var(--fail);
+}
+
+.node-container {
+    padding: 1.5rem 3rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.node-card {
+    background: var(--panel-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+    transition: border-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.node-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(130deg, rgba(229, 9, 20, 0.25), transparent 65%);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+    pointer-events: none;
+}
+
+.node-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(229, 9, 20, 0.45);
+}
+
+.node-card:hover::before {
+    opacity: 1;
+}
+
+.node-header {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: inherit;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    text-align: left;
+}
+
+.node-header:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.node-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.node-name {
+    margin: 0;
+    font-size: 1.25rem;
+    letter-spacing: 0.05rem;
+}
+
+.node-ip {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.node-meta {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: end;
+}
+
+.node-status.status-pill {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.node-timestamp {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.toggle-icon {
+    width: 18px;
+    height: 18px;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(45deg);
+    transition: transform var(--transition-speed) ease;
+}
+
+.node-card.open .toggle-icon {
+    transform: rotate(-135deg);
+}
+
+.node-details {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed) ease, padding-top var(--transition-speed) ease;
+}
+
+.node-card.open .node-details {
+    padding-top: 0.5rem;
+    max-height: 520px;
+}
+
+.status-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.status-item {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    transition: transform var(--transition-speed) ease;
+}
+
+.status-item h3 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.03rem;
+}
+
+.status-item .status-label {
+    font-weight: 700;
+    margin: 0.35rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.07rem;
+}
+
+.status-item .status-details {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.status-item.status-ok {
+    border-color: rgba(29, 185, 84, 0.35);
+}
+
+.status-item.status-warn {
+    border-color: rgba(255, 182, 0, 0.45);
+}
+
+.status-item.status-fail {
+    border-color: rgba(255, 59, 48, 0.45);
+}
+
+.node-card.open .status-item {
+    transform: translateY(0);
+    animation: reveal var(--transition-speed) ease;
+}
+
+@keyframes reveal {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.app-footer {
+    margin-top: auto;
+    padding: 1.25rem 3rem 2rem;
+    border-top: 1px solid rgba(229, 9, 20, 0.2);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+@media (max-width: 640px) {
+    .app-header {
+        padding: 2rem 1.25rem 1rem;
+    }
+
+    .node-container {
+        padding: 1.25rem;
+        grid-template-columns: 1fr;
+    }
+
+    .app-footer {
+        padding: 1rem 1.25rem 2rem;
+    }
+}
